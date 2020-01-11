@@ -2,12 +2,8 @@ import React from "react";
 
 export class AddClientForm extends React.Component {
   state = {
-    clientInformation: [
-      {
-        name: "",
-        phone: ""
-      }
-    ]
+    name: "",
+    phone: ""
   };
 
   render() {
@@ -16,7 +12,7 @@ export class AddClientForm extends React.Component {
         <input
           type="text"
           placeholder="Name"
-          value={this.state.clientInformation.name}
+          value={this.state.name}
           onChange={e =>
             this.setState({
               name: e.target.value
@@ -26,7 +22,7 @@ export class AddClientForm extends React.Component {
         <input
           type="text"
           placeholder="Phone"
-          value={this.state.clientInformation.phone}
+          value={this.state.phone}
           onChange={e =>
             this.setState({
               phone: e.target.value
@@ -35,9 +31,13 @@ export class AddClientForm extends React.Component {
         />
         <button
           onClick={() => {
-            if (this.state.name && this.state.phone) {
+            if (
+              this.state.name &&
+              this.state.name.trim() &&
+              this.state.phone && this.state.phone.trim()
+            ) {
               this.setState({ name: "", phone: "" });
-              this.props.onSave(this.state.name);
+              this.props.onSave(this.state.name, this.state.phone);
             }
           }}
         >

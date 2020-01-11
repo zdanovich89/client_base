@@ -1,33 +1,42 @@
 import React from "react";
 import { AddClientForm } from "./AddClientForm";
 
+function addClient(
+  clients,
+  newClient
+) {
+  return [...clients, newClient];
+}
+
+
 export class ClientList extends React.Component {
   state = {
-    clientInformation: [
+    clients: [
       {
-        id: 1,
+        id: "",
         name: "",
         phone: ""
       }
     ]
   };
-  nextId = 2;
+  nextId = 1;
 
   render() {
     return (
       <>
-        {/* <AddClientForm
-          onSave={text => {
-            const client = {
+        <AddClientForm
+          onSave={ (name, phone) => {
+            const newClient = {
               id: this.nextId,
-              text
+              name,
+              phone
             };
             this.setState({
-              clients: addClient(this.state.clients, client)
+              clients: addClient(this.state.clients, newClient)
             });
             this.nextId++;
           }}
-        /> */}
+        />
         <table>
           <thead>
             <tr>
@@ -37,11 +46,14 @@ export class ClientList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Lora</td>
-              <td>+37533686999</td>
-            </tr>
+            {this.state.clients.map(newClient=> (
+              <tr key={newClient.id}>
+                <td >{newClient.id}</td>    
+                <td >{newClient.name}</td> 
+                <td >{newClient.phone}</td>         
+              </tr>
+            ))}
+          
           </tbody>
         </table>
       </>

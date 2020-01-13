@@ -5,7 +5,8 @@ export class EditClientForm extends React.Component {
     super(props);
     this.state = {
       name: this.props.clientInformation.name,
-      phone: this.props.clientInformation.phone
+      phone: this.props.clientInformation.phone,
+      isBuy: this.props.clientInformation.isBuy
     };
   }
 
@@ -30,6 +31,19 @@ export class EditClientForm extends React.Component {
             })
           }
         />
+        <select
+          type="text"
+          value={this.state.isBuy}
+          onChange={e =>
+            this.setState({
+              isBuy: e.target.value
+            })
+          }
+        >
+          <option value="no purchases">no purchases</option>
+          <option value="one purchases">one purchases</option>
+          <option value="more purchases">more purchases</option>
+        </select>
         <button
           onClick={() => {
             if (
@@ -37,8 +51,12 @@ export class EditClientForm extends React.Component {
               this.state.name.trim() &&
               this.state.phone && this.state.phone.trim()
             ) {
-              this.setState({ name: "", phone: "" });
-              this.props.onSave(this.state.name, this.state.phone);
+              this.setState({ name: "", phone: "", isBuy: "" });
+              this.props.onSave(
+                this.state.name,
+                this.state.phone,
+                this.state.isBuy
+              );
             }
           }}
         >

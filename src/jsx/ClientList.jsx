@@ -35,13 +35,14 @@ export class ClientList extends React.Component {
           clientInformation={this.state.clients.find(
             client => client.id === this.state.clientToEdit
           )}
-          onSave={(name, phone) => {
+          onSave={(name, phone, isBuy) => {
             const copy = updateClients(
               this.state.clients,
               this.state.clientToEdit,
               {
                 name,
-                phone
+                phone,
+                isBuy
               }
             );
 
@@ -61,11 +62,12 @@ export class ClientList extends React.Component {
     return (
       <>
         <AddClientForm
-          onSave={(name, phone) => {
+          onSave={(name, phone, isBuy = "no purchases") => {
             const client = {
               id: this.nextId,
               name,
-              phone
+              phone,
+              isBuy
             };
             this.setState({
               clients: addClient(this.state.clients, client)
@@ -79,7 +81,7 @@ export class ClientList extends React.Component {
               <th>ID</th>
               <th>Name</th>
               <th>Phone</th>
-              <th></th>
+              <th>Is buy?</th>
               <th></th>
             </tr>
           </thead>
@@ -89,6 +91,7 @@ export class ClientList extends React.Component {
                 <td>{client.id}</td>
                 <td>{client.name}</td>
                 <td>{client.phone}</td>
+                <td>{client.isBuy}</td>
                 <td>
                   <button
                     onClick={evt =>

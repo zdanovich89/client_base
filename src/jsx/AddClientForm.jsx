@@ -3,7 +3,8 @@ import React from "react";
 export class AddClientForm extends React.Component {
   state = {
     name: "",
-    phone: ""
+    phone: "",
+    isBuy: undefined
   };
 
   render() {
@@ -29,15 +30,33 @@ export class AddClientForm extends React.Component {
             })
           }
         />
+        <select
+          type="text"
+          value={this.state.isBuy}
+          onChange={e =>
+            this.setState({
+              isBuy: e.target.value
+            })
+          }
+        >
+          <option value="no purchases">no purchases</option>
+          <option value="one purchases">one purchases</option>
+          <option value="more purchases">more purchases</option>
+        </select>
         <button
           onClick={() => {
             if (
               this.state.name &&
               this.state.name.trim() &&
-              this.state.phone && this.state.phone.trim()
+              this.state.phone &&
+              this.state.phone.trim()
             ) {
-              this.setState({ name: "", phone: "" });
-              this.props.onSave(this.state.name, this.state.phone);
+              this.setState({ name: "", phone: "", isBuy: undefined });
+              this.props.onSave(
+                this.state.name,
+                this.state.phone,
+                this.state.isBuy
+              );
             }
           }}
         >

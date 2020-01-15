@@ -13,7 +13,6 @@ export class AddClientForm extends React.Component {
   state = {
     name: "",
     phone: "",
-    isBuy: undefined,
     isTouched: false
   };
 
@@ -52,7 +51,6 @@ export class AddClientForm extends React.Component {
             isValidNumber(this.state.phone)
           )}
           onBlur={this.onBlur}
-          maxLength="13"
           onChange={e =>
             this.setState({
               phone: e.target.value
@@ -61,10 +59,10 @@ export class AddClientForm extends React.Component {
         />
         <select
           type="text"
-          value={this.state.isBuy}
+          value={this.state.purchasesCounter}
           onChange={e =>
             this.setState({
-              isBuy: e.target.value
+              purchasesCounter: e.target.value
             })
           }
         >
@@ -79,17 +77,17 @@ export class AddClientForm extends React.Component {
               this.state.name.trim() &&
               isValidNumber(this.state.phone)
             ) {
-              this.setState({
-                name: "",
-                phone: "",
-                isBuy: undefined,
-                isTouched: false
-              });
               this.props.onSave(
                 this.state.name,
                 this.state.phone,
-                this.state.isBuy
+                this.state.purchasesCounter
               );
+
+              this.setState({
+                name: "",
+                phone: "",
+                isTouched: false
+              });
             }
           }}
         >

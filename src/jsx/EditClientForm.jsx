@@ -13,10 +13,10 @@ export class EditClientForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.clientInformation.name,
-      phone: this.props.clientInformation.phone,
-      isBuy: this.props.clientInformation.isBuy,
-      isTouched: this.props.clientInformation.isTouched
+      name: this.props.client.name,
+      phone: this.props.client.phone,
+      purchasesCounter: this.props.client.purchasesCounter,
+      isTouched: this.props.client.isTouched
     };
   }
 
@@ -55,10 +55,10 @@ export class EditClientForm extends React.Component {
         />
         <select
           type="text"
-          value={this.state.isBuy}
+          value={this.state.purchasesCounter}
           onChange={e =>
             this.setState({
-              isBuy: e.target.value
+              purchasesCounter: e.target.value
             })
           }
         >
@@ -73,12 +73,15 @@ export class EditClientForm extends React.Component {
               this.state.name.trim() &&
               isValidNumber(this.state.phone)
             ) {
-              this.setState({ name: "", phone: "", isBuy: "" });
               this.props.onSave(
                 this.state.name,
                 this.state.phone,
-                this.state.isBuy
+                this.state.purchasesCounter
               );
+              this.setState({ 
+                name: "", 
+                phone: "",
+                isTouched: false });
             }
           }}
         >

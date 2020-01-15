@@ -32,17 +32,17 @@ export class ClientList extends React.Component {
     if (this.state.clientToEdit) {
       return (
         <EditClientForm
-          clientInformation={this.state.clients.find(
+          client={this.state.clients.find(
             client => client.id === this.state.clientToEdit
           )}
-          onSave={(name, phone, isBuy) => {
+          onSave={(name, phone, purchasesCounter) => {
             const copy = updateClients(
               this.state.clients,
               this.state.clientToEdit,
               {
                 name,
                 phone,
-                isBuy
+                purchasesCounter
               }
             );
 
@@ -62,12 +62,12 @@ export class ClientList extends React.Component {
     return (
       <>
         <AddClientForm
-          onSave={(name, phone, isBuy = "no purchases") => {
+          onSave={(name, phone, purchasesCounter = "no purchases") => {
             const client = {
               id: this.nextId,
               name,
               phone,
-              isBuy
+              purchasesCounter
             };
             this.setState({
               clients: addClient(this.state.clients, client)
@@ -91,7 +91,7 @@ export class ClientList extends React.Component {
                 <td>{client.id}</td>
                 <td>{client.name}</td>
                 <td>{client.phone}</td>
-                <td>{client.isBuy}</td>
+                <td>{client.purchasesCounter}</td>
                 <td>
                   <button
                     onClick={evt =>
